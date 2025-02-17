@@ -31,7 +31,8 @@
 +---------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <sys/ioctl.h>
+#include <unistd.h>
 #include "Ap4.h"
 
 /*----------------------------------------------------------------------
@@ -79,7 +80,24 @@ public:
 AP4_Result
 ProgressListener::OnProgress(unsigned int step, unsigned int total)
 {
-    printf("\r%d/%d", step, total);
+    struct winsize size;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+    
+    int barWidth = size.ws_col - 20; // Adjusting for additional text and padding
+
+    float progress = (float)step / total;
+    int barLength = progress * barWidth;
+
+    printf("\r[");
+    for (int i = 0; i < barWidth; ++i) {
+        if (i < barLength) {
+            printf("■");
+        } else {
+            printf("☐");
+        }
+    }
+    printf("] %d%% (%d/%d)", int(progress * 100.0), step, total);
+    fflush(stdout);
     return AP4_SUCCESS;
 }
 
