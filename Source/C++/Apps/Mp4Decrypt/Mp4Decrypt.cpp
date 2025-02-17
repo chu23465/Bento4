@@ -31,7 +31,6 @@
 +---------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include "Ap4.h"
 
 /*----------------------------------------------------------------------
@@ -79,7 +78,7 @@ public:
 AP4_Result
 ProgressListener::OnProgress(unsigned int step, unsigned int total)
 {    
-    const int barWidth = 100;
+    const int barWidth = 80;
 
     float progress = (float)step / total;
     int barLength = progress * barWidth;
