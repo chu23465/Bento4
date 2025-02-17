@@ -78,10 +78,7 @@ public:
 
 AP4_Result
 ProgressListener::OnProgress(unsigned int step, unsigned int total)
-{
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-    
+{    
     const int barWidth = 100;
 
     float progress = (float)step / total;
