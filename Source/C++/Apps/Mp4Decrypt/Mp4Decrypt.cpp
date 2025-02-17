@@ -31,7 +31,7 @@
 +---------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/ioctl.h>
+#include <windows.h> // For Windows API functions
 #include <unistd.h>
 #include "Ap4.h"
 
@@ -80,10 +80,10 @@ public:
 AP4_Result
 ProgressListener::OnProgress(unsigned int step, unsigned int total)
 {
-    struct winsize size;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
     
-    int barWidth = size.ws_col - 20; // Adjusting for additional text and padding
+    int barWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1 - 20; // Adjusting for additional text and padding
 
     float progress = (float)step / total;
     int barLength = progress * barWidth;
