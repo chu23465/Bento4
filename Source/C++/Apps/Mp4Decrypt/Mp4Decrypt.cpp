@@ -31,7 +31,6 @@
 +---------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h> // For Windows API functions
 #include <unistd.h>
 #include "Ap4.h"
 
@@ -83,7 +82,7 @@ ProgressListener::OnProgress(unsigned int step, unsigned int total)
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
     
-    int barWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1 - 20; // Adjusting for additional text and padding
+    const int barWidth = 100;
 
     float progress = (float)step / total;
     int barLength = progress * barWidth;
