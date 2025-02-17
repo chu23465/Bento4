@@ -91,7 +91,7 @@ ProgressListener::OnProgress(unsigned int step, unsigned int total)
     printf("\r[");
     for (int i = 0; i < barWidth; ++i) {
         if (i < barLength) {
-            printf("■");
+            printf("■"); // Replace as necessary
         } else {
             printf("☐");
         }
