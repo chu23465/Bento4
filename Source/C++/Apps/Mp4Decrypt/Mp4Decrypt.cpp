@@ -81,7 +81,7 @@ ProgressListener::OnProgress(unsigned int step, unsigned int total)
     const int barWidth = 80;
 
     float progress = (float)step / (float)total;
-    int pos = (int)((float)barWidth * progress);
+    int barLength = (int)((float)barWidth * progress);
 
     fprintf(stdout, "[");
     for (int i = 0; i < barWidth; ++i) {
