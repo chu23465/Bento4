@@ -80,10 +80,10 @@ ProgressListener::OnProgress(unsigned int step, unsigned int total)
 {    
     const int barWidth = 80;
 
-    float progress = (float)step / total;
-    int barLength = progress * barWidth;
+    float progress = (float)step / (float)total;
+    int pos = (int)((float)barWidth * progress);
 
-    printf("\r[");
+    fprintf(stdout, "[");
     for (int i = 0; i < barWidth; ++i) {
         if (i < barLength) {
             printf("■"); // Replace as necessary
@@ -91,6 +91,7 @@ ProgressListener::OnProgress(unsigned int step, unsigned int total)
             printf("☐");
         }
     }
+    
     printf("] %d%% (%d/%d)", int(progress * 100.0), step, total);
     fflush(stdout);
     return AP4_SUCCESS;
